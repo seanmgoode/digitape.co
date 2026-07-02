@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DigiTape RX 2.41 Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="sim-panel" aria-label="Mini RX simulator">
+      <div class="toolbar">
+        <div>
+          <h1>RX 2.41 Simulator</h1>
+          <p>450 x 600 AMOLED layout mirror</p>
+        </div>
+        <div class="toolbar-actions">
+          <button id="resetState" type="button">Reset</button>
+          <button id="copyState" type="button">Copy JSON</button>
+          <button id="exportPng" type="button">Export PNG</button>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <div class="device-frame" id="deviceFrame">
+          <div class="screen" id="screen" data-screen="home" aria-label="Simulated Mini RX display">
+            <div class="page page-home active" data-page="home">
+              <button class="tx-pill hit" id="txPill" type="button" title="Tap TX/source"></button>
+              <button class="signal-hit hit" id="signalHit" type="button" title="Connection page"></button>
+              <div class="signal-bars" id="signalBars" aria-hidden="true"></div>
+              <div class="wifi-icon" id="wifiIcon">WiFi</div>
+              <button class="battery-pill hit" id="batteryPill" type="button" title="Power page"></button>
+
+              <div class="distance-readout" aria-label="Distance readout">
+                <div class="feet-number" id="feetNumber"></div>
+                <div class="feet-marker">'</div>
+                <div class="inch-number" id="inchNumber"></div>
+                <div class="inch-marker">&quot;</div>
+              </div>
+
+              <div class="status-line" id="statusLine"></div>
+              <button class="bottom-offset hit" id="offsetLabel" type="button" title="Cycle offset"></button>
+              <button class="bottom-mode hit" id="modeLabel" type="button" title="Cycle mode"></button>
+              <button class="settings-hotspot hit" id="settingsHotspot" type="button" title="Settings"></button>
+            </div>
+
+            <div class="page page-settings" data-page="settings">
+              <div class="page-title small">SETTINGS</div>
+              <button class="menu-button" data-open="brightness" type="button">Brightness</button>
+              <button class="menu-button" data-open="wifi" type="button">WiFi</button>
+              <button class="menu-button" data-open="debug" type="button">Debug WiFi</button>
+              <button class="menu-button" data-open="diagnostics" type="button">Diagnostics</button>
+            </div>
+
+            <div class="page page-power" data-page="power">
+              <button class="back-hotspot" data-open="home" type="button">BACK</button>
+              <div class="page-title">POWER</div>
+              <pre class="info-block" id="powerInfo"></pre>
+            </div>
+
+            <div class="page page-connection" data-page="connection">
+              <button class="back-hotspot" data-open="home" type="button">BACK</button>
+              <div class="page-title">CONNECTION</div>
+              <pre class="info-block" id="connectionInfo"></pre>
+            </div>
+
+            <div class="page page-offset" data-page="offset">
+              <div class="page-title">OFFSET</div>
+              <div class="offset-readout" id="offsetReadout"></div>
+              <button class="offset-adjust offset-minus" id="offsetMinus" type="button">-</button>
+              <button class="offset-adjust offset-plus" id="offsetPlus" type="button">+</button>
+              <button class="menu-close" data-open="home" type="button">MENU</button>
+            </div>
+
+            <div class="page page-diagnostics" data-page="diagnostics">
+              <button class="back-hotspot" data-open="settings" type="button">BACK</button>
+              <div class="page-title">DIAGNOSTICS</div>
+              <pre class="diag-block" id="diagInfo"></pre>
+            </div>
+
+            <div class="page page-generic" data-page="brightness">
+              <button class="back-hotspot" data-open="settings" type="button">BACK</button>
+              <div class="page-title small">BRIGHTNESS</div>
+              <div class="generic-title">Display</div>
+              <input id="brightnessSlider" class="brightness-slider" type="range" min="30" max="255" value="255">
+            </div>
+
+            <div class="page page-generic" data-page="wifi">
+              <button class="back-hotspot" data-open="settings" type="button">BACK</button>
+              <div class="wifi-large">WiFi</div>
+              <div class="generic-title">WiFi</div>
+              <pre class="center-info" id="wifiInfo"></pre>
+            </div>
+
+            <div class="page page-generic" data-page="debug">
+              <button class="back-hotspot" data-open="settings" type="button">BACK</button>
+              <div class="page-title small">DEBUG WIFI</div>
+              <div class="generic-title">Preview Mode</div>
+              <pre class="center-info">Browser simulator\nNo BLE while debug WiFi is active</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="controls" aria-label="Simulator controls">
+      <h2>State</h2>
+      <label>Distance
+        <input id="distanceInput" type="text" value="5' 10&quot;">
+      </label>
+      <label>Route
+        <select id="routeInput">
+          <option>TX</option>
+          <option>RX</option>
+        </select>
+      </label>
+      <label>Status
+        <input id="statusInput" type="text" value="Live">
+      </label>
+      <label>Offset
+        <input id="offsetInput" type="text" value="0&quot;">
+      </label>
+      <label>Mode
+        <select id="modeInput">
+          <option>FAST</option>
+          <option selected>NORMAL</option>
+          <option>SMOOTH</option>
+          <option>SLOW</option>
+        </select>
+      </label>
+      <label>Theme color
+        <select id="themeInput">
+          <option value="white" selected>White</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="red">Red</option>
+        </select>
+      </label>
+      <label>TX link
+        <select id="connectedInput">
+          <option value="true" selected>Connected</option>
+          <option value="false">Disconnected</option>
+        </select>
+      </label>
+      <label>RSSI
+        <input id="rssiInput" type="number" value="-42">
+      </label>
+      <label>WiFi
+        <select id="wifiInput">
+          <option value="true" selected>On</option>
+          <option value="false">Hidden</option>
+        </select>
+      </label>
+      <label>Power source
+        <select id="powerSourceInput">
+          <option>USB</option>
+          <option>Battery</option>
+          <option>No battery</option>
+          <option>PMU --</option>
+        </select>
+      </label>
+      <label>Battery %
+        <input id="batteryInput" type="number" min="0" max="100" value="74">
+      </label>
+      <label>Scale
+        <input id="scaleInput" type="range" min="0.75" max="1.8" value="1" step="0.05">
+      </label>
+      <h2>Live layout</h2>
+      <label>Distance top <span id="distanceTopValue"></span>
+        <input id="distanceTopInput" type="range" min="120" max="340" value="242">
+      </label>
+      <label>Distance height <span id="distanceHeightValue"></span>
+        <input id="distanceHeightInput" type="range" min="80" max="180" value="128">
+      </label>
+      <label>Distance gap <span id="distanceGapValue"></span>
+        <input id="distanceGapInput" type="range" min="0" max="38" value="12">
+      </label>
+      <label>Number Y <span id="numberYOffsetValue"></span>
+        <input id="numberYOffsetInput" type="range" min="-10" max="34" value="12">
+      </label>
+      <label>Feet width <span id="feetWidthValue"></span>
+        <input id="feetWidthInput" type="range" min="48" max="160" value="96">
+      </label>
+      <label>Inches width <span id="inchWidthValue"></span>
+        <input id="inchWidthInput" type="range" min="58" max="170" value="96">
+      </label>
+      <label>Status top <span id="statusTopValue"></span>
+        <input id="statusTopInput" type="range" min="250" max="460" value="380">
+      </label>
+      <label>Bottom labels Y <span id="bottomYValue"></span>
+        <input id="bottomYInput" type="range" min="8" max="70" value="44">
+      </label>
+      <label>Signal right <span id="signalRightValue"></span>
+        <input id="signalRightInput" type="range" min="116" max="300" value="202">
+      </label>
+      <label>WiFi right <span id="wifiRightValue"></span>
+        <input id="wifiRightInput" type="range" min="70" max="230" value="132">
+      </label>
+      <label>Battery right <span id="batteryRightValue"></span>
+        <input id="batteryRightInput" type="range" min="6" max="70" value="18">
+      </label>
+      <label>Top icon Y <span id="iconTopValue"></span>
+        <input id="iconTopInput" type="range" min="8" max="70" value="24">
+      </label>
+
+      <div class="hint">Click TX, signal bars, battery, or bottom-right settings hotspot on the display.</div>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

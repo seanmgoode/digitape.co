@@ -1,0 +1,245 @@
+:root {
+  --screen-w: 450px;
+  --screen-h: 600px;
+  --scale: 1;
+  --bg: #050505;
+  --panel: #111315;
+  --text: #ffffff;
+  --muted: #bdbdbd;
+  --green: #22e36f;
+  --blue: #7fb7ff;
+  --red: #d62626;
+  --orange: #ff9f2e;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #0b0d10;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(660px, 1fr) 320px;
+  gap: 18px;
+  padding: 18px;
+}
+.sim-panel, .controls {
+  background: var(--panel);
+  border: 1px solid #252a2f;
+  border-radius: 10px;
+}
+.sim-panel { display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
+.toolbar {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #252a2f;
+}
+h1, h2, p { margin: 0; }
+h1 { font-size: 20px; font-weight: 750; }
+p { color: #8d949c; font-size: 13px; margin-top: 4px; }
+.toolbar-actions { display: flex; gap: 8px; }
+.toolbar-actions button, .controls button {
+  color: var(--text);
+  background: #1a1d20;
+  border: 1px solid #333942;
+  border-radius: 8px;
+  padding: 9px 12px;
+}
+.workspace {
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  overflow: auto;
+}
+.device-frame {
+  width: calc(var(--screen-w) * var(--scale));
+  height: calc(var(--screen-h) * var(--scale));
+  display: grid;
+  place-items: center;
+  background: #000;
+  border-radius: calc(28px * var(--scale));
+  box-shadow: 0 20px 80px rgba(0,0,0,.55), inset 0 0 0 1px #242424;
+}
+.screen {
+  position: relative;
+  width: var(--screen-w);
+  height: var(--screen-h);
+  background: #000;
+  overflow: hidden;
+  transform: scale(var(--scale));
+  transform-origin: center;
+  border-radius: 22px;
+}
+.screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 22px;
+  box-shadow: inset 0 0 0 1px #202020;
+}
+.page { position: absolute; inset: 0; display: none; background: #000; }
+.page.active { display: block; }
+.hit { border: 0; padding: 0; background: transparent; color: inherit; }
+.tx-pill {
+  position: absolute; left: 22px; top: 22px; width: 84px; height: 48px;
+  border-radius: 16px; background: #a91515; color: white; font-size: 26px; font-weight: 800;
+}
+.tx-pill::before { content: attr(data-route); position: absolute; inset: 8px 0 0; text-align: center; }
+.tx-pill.connected { background: #0c5f2a; }
+.signal-hit { position: absolute; right: 174px; top: 22px; width: 86px; height: 48px; z-index: 4; }
+.signal-bars .bar {
+  position: absolute; right: calc(194px - var(--i) * 15px); top: calc(50px - var(--i) * 8px);
+  width: 8px; height: calc(12px + var(--i) * 8px);
+  border-radius: 3px; background: #242424;
+}
+.signal-bars .bar.on { background: var(--green); }
+.wifi-icon { position: absolute; right: 106px; top: 33px; color: var(--blue); font-size: 22px; font-weight: 650; }
+.wifi-icon.hidden { display: none; }
+.battery-pill {
+  position: absolute; right: 16px; top: 22px; width: 86px; height: 48px;
+}
+.battery-pill::before {
+  content: attr(data-label); position: absolute; left: 0; top: 7px; width: 76px; height: 34px;
+  display: grid; place-items: center; color: var(--blue); font-size: 22px; font-weight: 800;
+  background: #111; border: 2px solid #303030; border-radius: 7px;
+}
+.battery-pill::after {
+  content: ""; position: absolute; right: 0; top: 16px; width: 6px; height: 16px;
+  background: #303030; border-radius: 3px;
+}
+.distance-readout {
+  position: absolute;
+  left: 0;
+  top: 242px;
+  width: 450px;
+  height: 128px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text);
+}
+.distance-readout.green { color: var(--green); }
+.distance-readout.blue { color: var(--blue); }
+.distance-readout.red { color: #ff5757; }
+.feet-number, .inch-number, .feet-marker, .inch-marker {
+  position: static; font-weight: 800; line-height: .92; letter-spacing: 0;
+  font-family: "Montserrat", "SF Pro Display", Arial, sans-serif;
+}
+.feet-number { width: 96px; text-align: right; font-size: 72px; padding-top: 12px; }
+.feet-marker { font-size: 48px; }
+.inch-number { width: 96px; text-align: right; font-size: 72px; padding-top: 12px; }
+.inch-marker { font-size: 48px; }
+.status-line { position: absolute; top: 380px; left: 0; width: 450px; text-align: center; color: var(--muted); font-size: 22px; font-weight: 550; }
+.bottom-offset {
+  position: absolute;
+  left: 16px;
+  bottom: 44px;
+  width: 154px;
+  height: 56px;
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 750;
+  text-align: left;
+  padding-left: 8px;
+}
+.bottom-mode {
+  position: absolute;
+  left: 116px;
+  bottom: 44px;
+  width: 144px;
+  height: 56px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 750;
+}
+.bottom-offset:active,
+.bottom-mode:active { color: var(--green); }
+.settings-hotspot { position: absolute; right: 0; bottom: 0; width: 94px; height: 92px; }
+.page-title { position: absolute; top: 30px; left: 0; width: 450px; text-align: center; color: #b0b0b0; font-size: 28px; font-weight: 750; }
+.page-title.small { font-size: 22px; top: 34px; }
+.back-hotspot { position: absolute; left: 10px; top: 10px; width: 82px; height: 58px; border: 0; color: white; background: #202020; border-radius: 18px; font-size: 16px; font-weight: 800; letter-spacing: 0; z-index: 3; }
+.info-block, .diag-block, .center-info {
+  position: absolute; left: 42px; top: 92px; width: 366px; margin: 0; white-space: pre-wrap;
+  color: white; font-size: 28px; line-height: 1.28; font-family: inherit; font-weight: 650;
+}
+.offset-readout {
+  position: absolute;
+  top: 126px;
+  left: 0;
+  width: 450px;
+  color: white;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 760;
+}
+.offset-adjust {
+  position: absolute;
+  top: 204px;
+  width: 120px;
+  height: 92px;
+  border: 2px solid #303030;
+  border-radius: 18px;
+  background: #151515;
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+}
+.offset-adjust:active,
+.menu-close:active { background: #0c5f2a; }
+.offset-minus { left: 34px; }
+.offset-plus { left: 296px; }
+.menu-close {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 92px;
+  height: 62px;
+  border: 2px solid #303030;
+  border-radius: 18px;
+  background: #151515;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 0;
+  font-weight: 800;
+}
+.diag-block { left: 34px; top: 82px; width: 382px; font-size: 24px; line-height: 1.22; }
+.menu-button {
+  position: absolute; left: 75px; width: 300px; height: 66px; border: 2px solid #303030; border-radius: 18px;
+  color: white; background: #151515; font-size: 28px; font-weight: 760;
+}
+.menu-button:nth-of-type(1) { top: 88px; }
+.menu-button:nth-of-type(2) { top: 168px; }
+.menu-button:nth-of-type(3) { top: 248px; }
+.menu-button:nth-of-type(4) { top: 328px; }
+.generic-title { position: absolute; top: 128px; left: 0; width: 450px; text-align: center; color: white; font-size: 28px; font-weight: 700; }
+.wifi-large { position: absolute; top: 36px; left: 0; width: 450px; color: var(--blue); font-size: 48px; text-align: center; font-weight: 750; }
+.center-info { top: 188px; left: 40px; width: 370px; text-align: center; color: var(--muted); }
+.brightness-slider { position: absolute; top: 202px; left: 75px; width: 300px; accent-color: var(--green); }
+.controls { padding: 18px; overflow: auto; }
+.controls h2 { font-size: 18px; margin-bottom: 14px; }
+.controls label { display: grid; gap: 6px; color: #aeb5bd; font-size: 13px; margin-bottom: 12px; }
+.controls label span { color: var(--blue); font-weight: 800; justify-self: end; }
+.controls input, .controls select {
+  width: 100%; color: white; background: #080a0c; border: 1px solid #303640; border-radius: 8px; padding: 10px;
+}
+.controls input[type="range"] { padding: 0; }
+.hint { margin-top: 14px; color: #8d949c; font-size: 13px; line-height: 1.35; }
+@media (max-width: 960px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .controls { max-height: none; }
+}
