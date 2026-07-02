@@ -87,64 +87,16 @@
       <section id="app" class="section app-section" aria-labelledby="app-title">
         <div class="app-copy">
           <p class="eyebrow">Companion app</p>
-          <h2 id="app-title">A pocket view for the hardware you are testing.</h2>
+          <h2 id="app-title">The real DigiTape app, ready for field testing.</h2>
           <p>
-            The app view keeps the active route, live distance, signal quality, battery state, and board identity in one place while the receiver and tag do the measurement work.
+            This capture comes from the current DigiTape iOS controller running in the simulator. It mirrors the RX console view with live distance, route, signal, battery, offset, response mode, and menu controls in one pocket interface.
           </p>
-          <div class="app-controls" role="group" aria-label="Demo mode">
-            <button class="mode-button is-active" type="button" data-mode="prep">Prep</button>
-            <button class="mode-button" type="button" data-mode="focus">Focus</button>
-            <button class="mode-button" type="button" data-mode="ota">OTA</button>
-          </div>
+          <p class="asset-note">RX hardware screen capture will be added here once the correct device photo is ready.</p>
         </div>
-        <div class="phone-demo" aria-label="DigiTape app demo">
-          <div class="phone-shell">
-            <div class="phone-status">
-              <span id="demo-route">RX -> TAG</span>
-              <span id="demo-link">LIVE</span>
-            </div>
-            <div class="distance-card">
-              <span class="label">Distance</span>
-              <strong id="demo-distance">7 ft 4 in</strong>
-              <span id="demo-subtitle">Mini RX tracking TAG-01</span>
-            </div>
-            <div class="meter-row">
-              <div>
-                <span class="label">Signal</span>
-                <div class="bars" aria-hidden="true">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-              <div>
-                <span class="label">Battery</span>
-                <strong id="demo-battery">86%</strong>
-              </div>
-            </div>
-            <div class="device-list">
-              <div>
-                <span>Receiver</span>
-                <strong id="demo-receiver">Mini RX</strong>
-              </div>
-              <div>
-                <span>Tag</span>
-                <strong id="demo-tag">TAG-01</strong>
-              </div>
-              <div>
-                <span>Channel</span>
-                <strong id="demo-channel">Stable</strong>
-              </div>
-            </div>
-            <div class="phone-actions">
-              <button type="button">Mark</button>
-              <button type="button">Hold</button>
-              <button type="button">Log</button>
-            </div>
-          </div>
-        </div>
+        <figure class="app-shot">
+          <img src="assets/digitape-app-home.png" alt="DigiTape iOS app showing the RX console interface" width="1206" height="2622">
+          <figcaption>Captured from the current DigiTape iOS controller.</figcaption>
+        </figure>
       </section>
 
       <section id="updates" class="section updates-section" aria-labelledby="updates-title">
@@ -163,61 +115,5 @@
       <span>DigiTape</span>
       <span>digitape.co</span>
     </footer>
-    <script>
-      const demoModes = {
-        prep: {
-          route: "RX -> TAG",
-          link: "LIVE",
-          distance: "7 ft 4 in",
-          subtitle: "Mini RX tracking TAG-01",
-          battery: "86%",
-          receiver: "Mini RX",
-          tag: "TAG-01",
-          channel: "Stable"
-        },
-        focus: {
-          route: "CAM -> ACTOR",
-          link: "MARK",
-          distance: "12 ft 8 in",
-          subtitle: "Focus mark saved for Lens A",
-          battery: "82%",
-          receiver: "RX Touch",
-          tag: "Talent Tag",
-          channel: "Scene 04"
-        },
-        ota: {
-          route: "FLEET",
-          link: "READY",
-          distance: "2 boards",
-          subtitle: "Stable channel package available",
-          battery: "USB",
-          receiver: "RX 2.0.8",
-          tag: "TX 2.0.9",
-          channel: "OTA"
-        }
-      };
-
-      const demoTargets = {
-        route: document.querySelector("#demo-route"),
-        link: document.querySelector("#demo-link"),
-        distance: document.querySelector("#demo-distance"),
-        subtitle: document.querySelector("#demo-subtitle"),
-        battery: document.querySelector("#demo-battery"),
-        receiver: document.querySelector("#demo-receiver"),
-        tag: document.querySelector("#demo-tag"),
-        channel: document.querySelector("#demo-channel")
-      };
-
-      document.querySelectorAll(".mode-button").forEach((button) => {
-        button.addEventListener("click", () => {
-          document.querySelectorAll(".mode-button").forEach((item) => item.classList.remove("is-active"));
-          button.classList.add("is-active");
-          const mode = demoModes[button.dataset.mode];
-          Object.entries(mode).forEach(([key, value]) => {
-            demoTargets[key].textContent = value;
-          });
-        });
-      });
-    </script>
   </body>
 </html>
