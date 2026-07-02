@@ -67,6 +67,29 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
   border-radius: 8px;
   padding: 9px 12px;
 }
+.sim-tabs {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 4px;
+  border: 1px solid #2a3036;
+  border-radius: 8px;
+  background: #090b0d;
+}
+.sim-tab {
+  min-height: 32px;
+  color: #aeb5bd;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.sim-tab.is-active {
+  color: #061008;
+  background: var(--green);
+}
 .workspace {
   min-height: 0;
   display: grid;
@@ -113,7 +136,7 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 .tx-pill.connected { background: #0c5f2a; }
 .signal-hit { position: absolute; right: 174px; top: 22px; width: 86px; height: 48px; z-index: 4; }
 .signal-bars .bar {
-  position: absolute; right: calc(194px - var(--i) * 15px); top: calc(50px - var(--i) * 8px);
+  position: absolute;
   width: 8px; height: calc(12px + var(--i) * 8px);
   border-radius: 3px; background: #242424;
 }
@@ -136,7 +159,7 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
   position: absolute;
   left: 0;
   top: 242px;
-  width: 450px;
+  width: var(--screen-w);
   height: 128px;
   display: flex;
   align-items: flex-start;
@@ -155,7 +178,7 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 .feet-marker { font-size: 48px; }
 .inch-number { width: 96px; text-align: right; font-size: 72px; padding-top: 12px; }
 .inch-marker { font-size: 48px; }
-.status-line { position: absolute; top: 380px; left: 0; width: 450px; text-align: center; color: var(--muted); font-size: 22px; font-weight: 550; }
+.status-line { position: absolute; top: 380px; left: 0; width: var(--screen-w); text-align: center; color: var(--muted); font-size: 22px; font-weight: 550; }
 .bottom-offset {
   position: absolute;
   left: 16px;
@@ -182,7 +205,7 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 .bottom-offset:active,
 .bottom-mode:active { color: var(--green); }
 .settings-hotspot { position: absolute; right: 0; bottom: 0; width: 94px; height: 92px; }
-.page-title { position: absolute; top: 30px; left: 0; width: 450px; text-align: center; color: #b0b0b0; font-size: 28px; font-weight: 750; }
+.page-title { position: absolute; top: 30px; left: 0; width: var(--screen-w); text-align: center; color: #b0b0b0; font-size: 28px; font-weight: 750; }
 .page-title.small { font-size: 22px; top: 34px; }
 .back-hotspot { position: absolute; left: 10px; top: 10px; width: 82px; height: 58px; border: 0; color: white; background: #202020; border-radius: 18px; font-size: 16px; font-weight: 800; letter-spacing: 0; z-index: 3; }
 .info-block, .diag-block, .center-info {
@@ -193,7 +216,7 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
   position: absolute;
   top: 126px;
   left: 0;
-  width: 450px;
+  width: var(--screen-w);
   color: white;
   text-align: center;
   font-size: 34px;
@@ -238,10 +261,70 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 .menu-button:nth-of-type(2) { top: 168px; }
 .menu-button:nth-of-type(3) { top: 248px; }
 .menu-button:nth-of-type(4) { top: 328px; }
-.generic-title { position: absolute; top: 128px; left: 0; width: 450px; text-align: center; color: white; font-size: 28px; font-weight: 700; }
-.wifi-large { position: absolute; top: 36px; left: 0; width: 450px; color: var(--blue); font-size: 48px; text-align: center; font-weight: 750; }
+.generic-title { position: absolute; top: 128px; left: 0; width: var(--screen-w); text-align: center; color: white; font-size: 28px; font-weight: 700; }
+.wifi-large { position: absolute; top: 36px; left: 0; width: var(--screen-w); color: var(--blue); font-size: 48px; text-align: center; font-weight: 750; }
 .center-info { top: 188px; left: 40px; width: 370px; text-align: center; color: var(--muted); }
 .brightness-slider { position: absolute; top: 202px; left: 75px; width: 300px; accent-color: var(--green); }
+.screen.is-mini .tx-pill {
+  border-radius: 14px;
+  font-size: 23px;
+}
+.screen.is-mini .tx-pill::before {
+  inset: 6px 0 0;
+}
+.screen.is-mini .wifi-icon {
+  font-size: 20px;
+}
+.screen.is-mini .battery-pill {
+  width: 72px;
+  height: 42px;
+}
+.screen.is-mini .battery-pill::before {
+  top: 6px;
+  width: 62px;
+  height: 30px;
+  font-size: 18px;
+}
+.screen.is-mini .battery-pill::after {
+  top: 14px;
+  height: 14px;
+}
+.screen.is-mini .feet-number,
+.screen.is-mini .inch-number {
+  font-size: 64px;
+}
+.screen.is-mini .feet-marker,
+.screen.is-mini .inch-marker {
+  font-size: 40px;
+}
+.screen.is-mini .bottom-offset,
+.screen.is-mini .bottom-mode {
+  font-size: 18px;
+  padding-left: 4px;
+}
+.screen.is-mini .page-title {
+  top: 26px;
+  font-size: 23px;
+}
+.screen.is-mini .back-hotspot {
+  width: 76px;
+  height: 42px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+.screen.is-mini .info-block,
+.screen.is-mini .diag-block,
+.screen.is-mini .center-info {
+  left: 30px;
+  width: 308px;
+  font-size: 22px;
+}
+.screen.is-mini .menu-button {
+  left: 46px;
+  width: 276px;
+  height: 56px;
+  font-size: 23px;
+}
 .controls {
   display: grid;
   align-content: start;

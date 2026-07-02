@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DigiTape RX 2.41 Simulator</title>
+  <title>DigiTape RX Simulator</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,8 +11,12 @@
     <section class="sim-panel" aria-label="Mini RX simulator">
       <div class="toolbar">
         <div>
-          <h1>RX 2.41 Simulator</h1>
-          <p>450 x 600 AMOLED layout mirror</p>
+          <h1 id="simTitle">RX 2.41 Simulator</h1>
+          <p id="simSubtitle">450 x 600 AMOLED layout mirror</p>
+          <div class="sim-tabs" role="tablist" aria-label="Simulator model">
+            <button class="sim-tab is-active" id="tab-rx241" type="button" role="tab" aria-selected="true" data-profile="rx241">RX 2.41</button>
+            <button class="sim-tab" id="tab-mini18" type="button" role="tab" aria-selected="false" data-profile="mini18">MiniRx</button>
+          </div>
         </div>
         <div class="toolbar-actions">
           <button id="resetState" type="button">Reset</button>
@@ -108,8 +112,8 @@
       </label>
       <label>Route
         <select id="routeInput">
-          <option>TX</option>
-          <option>RX</option>
+          <option value="TX">TX</option>
+          <option value="RX">RX</option>
         </select>
       </label>
       <label>Status
@@ -117,10 +121,10 @@
       </label>
       <label>Mode
         <select id="modeInput">
-          <option>FAST</option>
-          <option selected>NORMAL</option>
-          <option>SMOOTH</option>
-          <option>SLOW</option>
+          <option value="FAST">FAST</option>
+          <option value="NORMAL" selected>NORMAL</option>
+          <option value="SMOOTH">SMOOTH</option>
+          <option value="SLOW">SLOW</option>
         </select>
       </label>
       <label>Offset
