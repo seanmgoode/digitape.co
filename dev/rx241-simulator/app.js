@@ -42,6 +42,16 @@ const controlIds = [
 const modes = ['FAST', 'NORMAL', 'SMOOTH', 'SLOW'];
 let effectiveScale = defaults.scale;
 
+function setControlValue(id, value) {
+  const el = $(id);
+  if (el) el.value = value;
+}
+
+function controlValue(id, fallback) {
+  const el = $(id);
+  return el ? el.value : fallback;
+}
+
 function offsetToNumber(offsetText) {
   const parsed = Number(String(offsetText).replace('"', ''));
   return Number.isFinite(parsed) ? parsed : 0;
@@ -71,18 +81,18 @@ function live() {
 }
 
 function syncControls() {
-  $('distanceInput').value = state.distance;
-  $('routeInput').value = state.route;
-  $('statusInput').value = state.status;
-  $('offsetInput').value = state.offset;
-  $('modeInput').value = state.mode;
-  $('themeInput').value = state.theme;
-  $('connectedInput').value = String(state.connected);
-  $('rssiInput').value = state.rssi;
-  $('wifiInput').value = String(state.wifi);
-  $('powerSourceInput').value = state.powerSource;
-  $('batteryInput').value = state.battery;
-  $('scaleInput').value = state.scale;
+  setControlValue('distanceInput', state.distance);
+  setControlValue('routeInput', state.route);
+  setControlValue('statusInput', state.status);
+  setControlValue('offsetInput', state.offset);
+  setControlValue('modeInput', state.mode);
+  setControlValue('themeInput', state.theme);
+  setControlValue('connectedInput', String(state.connected));
+  setControlValue('rssiInput', state.rssi);
+  setControlValue('wifiInput', String(state.wifi));
+  setControlValue('powerSourceInput', state.powerSource);
+  setControlValue('batteryInput', state.battery);
+  setControlValue('scaleInput', state.scale);
   Object.entries(state.layout).forEach(([key, value]) => {
     const input = $(`${key}Input`);
     const output = $(`${key}Value`);
@@ -159,7 +169,8 @@ function renderInfoPages() {
 function render() {
   const workspace = document.querySelector('.workspace');
   const availableWidth = workspace ? workspace.clientWidth - 16 : window.innerWidth - 20;
-  const fitScale = Math.max(0.45, Math.min(1, availableWidth / PANEL.width));
+  const availableHeight = workspace ? workspace.clientHeight - 16 : window.innerHeight - 20;
+  const fitScale = Math.max(0.34, Math.min(1, availableWidth / PANEL.width, availableHeight / PANEL.height));
   effectiveScale = Math.min(state.scale, fitScale);
   document.documentElement.style.setProperty('--scale', effectiveScale);
   renderPages();
@@ -173,19 +184,21 @@ function setScreen(screen) {
 }
 
 controlIds.forEach((id) => {
-  $(id).addEventListener('input', () => {
-    state.distance = $('distanceInput').value;
-    state.route = $('routeInput').value;
-    state.status = $('statusInput').value;
-    state.offset = $('offsetInput').value;
-    state.mode = $('modeInput').value;
-    state.theme = $('themeInput').value;
-    state.connected = $('connectedInput').value === 'true';
-    state.rssi = Number($('rssiInput').value);
-    state.wifi = $('wifiInput').value === 'true';
-    state.powerSource = $('powerSourceInput').value;
-    state.battery = Number($('batteryInput').value);
-    state.scale = Number($('scaleInput').value);
+  const control = $(id);
+  if (!control) return;
+  control.addEventListener('input', () => {
+    state.distance = controlValue('distanceInput', state.distance);
+    state.route = controlValue('routeInput', state.route);
+    state.status = controlValue('statusInput', state.status);
+    state.offset = controlValue('offsetInput', state.offset);
+    state.mode = controlValue('modeInput', state.mode);
+    state.theme = controlValue('themeInput', state.theme);
+    state.connected = controlValue('connectedInput', String(state.connected)) === 'true';
+    state.rssi = Number(controlValue('rssiInput', state.rssi));
+    state.wifi = controlValue('wifiInput', String(state.wifi)) === 'true';
+    state.powerSource = controlValue('powerSourceInput', state.powerSource);
+    state.battery = Number(controlValue('batteryInput', state.battery));
+    state.scale = Number(controlValue('scaleInput', state.scale));
     Object.keys(state.layout).forEach((key) => {
       const input = $(`${key}Input`);
       const output = $(`${key}Value`);
@@ -231,30 +244,34 @@ $('resetState').addEventListener('click', () => {
   syncControls();
   render();
 });
-$('copyState').addEventListener('click', async () => {
-  await navigator.clipboard.writeText(JSON.stringify(state, null, 2));
-  $('copyState').textContent = 'Copied';
-  setTimeout(() => $('copyState').textContent = 'Copy JSON', 900);
-});
-$('exportPng').addEventListener('click', () => {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${PANEL.width}" height="${PANEL.height}"><foreignObject width="100%" height="100%">${new XMLSerializer().serializeToString($('screen').cloneNode(true))}</foreignObject></svg>`;
-  const blob = new Blob([svg], { type: 'image/svg+xml' });
-  const url = URL.createObjectURL(blob);
-  const img = new Image();
-  img.onload = () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = PANEL.width;
-    canvas.height = PANEL.height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    URL.revokeObjectURL(url);
-    const link = document.createElement('a');
-    link.download = `mini-rx-${state.screen}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  };
-  img.src = url;
-});
+if ($('copyState')) {
+  $('copyState').addEventListener('click', async () => {
+    await navigator.clipboard.writeText(JSON.stringify(state, null, 2));
+    $('copyState').textContent = 'Copied';
+    setTimeout(() => $('copyState').textContent = 'Copy JSON', 900);
+  });
+}
+if ($('exportPng')) {
+  $('exportPng').addEventListener('click', () => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${PANEL.width}" height="${PANEL.height}"><foreignObject width="100%" height="100%">${new XMLSerializer().serializeToString($('screen').cloneNode(true))}</foreignObject></svg>`;
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = PANEL.width;
+      canvas.height = PANEL.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      const link = document.createElement('a');
+      link.download = `mini-rx-${state.screen}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+    img.src = url;
+  });
+}
 
 syncControls();
 render();

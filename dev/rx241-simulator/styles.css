@@ -13,12 +13,16 @@
 }
 
 * { box-sizing: border-box; }
-html { overflow-x: hidden; }
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 body {
   margin: 0;
   width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
   background: #0b0d10;
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
@@ -27,12 +31,12 @@ button, input, select { font: inherit; }
 button { cursor: pointer; }
 
 .app-shell {
-  min-height: 100vh;
+  height: 100svh;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 18px;
   padding: 18px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .sim-panel, .controls {
   min-width: 0;
@@ -40,7 +44,7 @@ button { cursor: pointer; }
   border: 1px solid #252a2f;
   border-radius: 10px;
 }
-.sim-panel { display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
+.sim-panel { min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
 .toolbar {
   min-height: 76px;
   display: flex;
@@ -238,27 +242,35 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 .wifi-large { position: absolute; top: 36px; left: 0; width: 450px; color: var(--blue); font-size: 48px; text-align: center; font-weight: 750; }
 .center-info { top: 188px; left: 40px; width: 370px; text-align: center; color: var(--muted); }
 .brightness-slider { position: absolute; top: 202px; left: 75px; width: 300px; accent-color: var(--green); }
-.controls { padding: 18px; overflow: auto; }
-.controls h2 { font-size: 18px; margin-bottom: 14px; }
-.controls label { display: grid; gap: 6px; color: #aeb5bd; font-size: 13px; margin-bottom: 12px; }
+.controls {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 16px;
+  overflow: hidden;
+}
+.controls h2 { font-size: 18px; margin-bottom: 2px; }
+.controls label { display: grid; gap: 5px; color: #aeb5bd; font-size: 12px; margin: 0; }
 .controls label span { color: var(--blue); font-weight: 800; justify-self: end; }
 .controls input, .controls select {
-  width: 100%; color: white; background: #080a0c; border: 1px solid #303640; border-radius: 8px; padding: 10px;
+  width: 100%; color: white; background: #080a0c; border: 1px solid #303640; border-radius: 8px; padding: 9px;
 }
 .controls input[type="range"] { padding: 0; }
 .hint { margin-top: 14px; color: #8d949c; font-size: 13px; line-height: 1.35; }
 @media (max-width: 960px) {
-  .app-shell { grid-template-columns: 1fr; }
-  .controls { max-height: none; }
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
 }
 
 @media (max-width: 640px) {
   body {
-    min-height: 100svh;
+    height: 100svh;
   }
 
   .app-shell {
-    min-height: 100svh;
+    height: 100svh;
     gap: 10px;
     padding: 10px;
   }
@@ -304,6 +316,24 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
   }
 
   .controls {
-    padding: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .controls h2 {
+    grid-column: 1 / -1;
+    font-size: 15px;
+  }
+
+  .controls label {
+    font-size: 11px;
+  }
+
+  .controls input,
+  .controls select {
+    min-height: 34px;
+    padding: 6px 8px;
+    font-size: 12px;
   }
 }

@@ -16,8 +16,6 @@
         </div>
         <div class="toolbar-actions">
           <button id="resetState" type="button">Reset</button>
-          <button id="copyState" type="button">Copy JSON</button>
-          <button id="exportPng" type="button">Export PNG</button>
         </div>
       </div>
 
@@ -117,9 +115,6 @@
       <label>Status
         <input id="statusInput" type="text" value="Live">
       </label>
-      <label>Offset
-        <input id="offsetInput" type="text" value="0&quot;">
-      </label>
       <label>Mode
         <select id="modeInput">
           <option>FAST</option>
@@ -128,13 +123,8 @@
           <option>SLOW</option>
         </select>
       </label>
-      <label>Theme color
-        <select id="themeInput">
-          <option value="white" selected>White</option>
-          <option value="green">Green</option>
-          <option value="blue">Blue</option>
-          <option value="red">Red</option>
-        </select>
+      <label>Offset
+        <input id="offsetInput" type="text" value="0&quot;">
       </label>
       <label>TX link
         <select id="connectedInput">
@@ -142,68 +132,9 @@
           <option value="false">Disconnected</option>
         </select>
       </label>
-      <label>RSSI
-        <input id="rssiInput" type="number" value="-42">
-      </label>
-      <label>WiFi
-        <select id="wifiInput">
-          <option value="true" selected>On</option>
-          <option value="false">Hidden</option>
-        </select>
-      </label>
-      <label>Power source
-        <select id="powerSourceInput">
-          <option>USB</option>
-          <option>Battery</option>
-          <option>No battery</option>
-          <option>PMU --</option>
-        </select>
-      </label>
       <label>Battery %
         <input id="batteryInput" type="number" min="0" max="100" value="74">
       </label>
-      <label>Scale
-        <input id="scaleInput" type="range" min="0.75" max="1.8" value="1" step="0.05">
-      </label>
-      <h2>Live layout</h2>
-      <label>Distance top <span id="distanceTopValue"></span>
-        <input id="distanceTopInput" type="range" min="120" max="340" value="242">
-      </label>
-      <label>Distance height <span id="distanceHeightValue"></span>
-        <input id="distanceHeightInput" type="range" min="80" max="180" value="128">
-      </label>
-      <label>Distance gap <span id="distanceGapValue"></span>
-        <input id="distanceGapInput" type="range" min="0" max="38" value="12">
-      </label>
-      <label>Number Y <span id="numberYOffsetValue"></span>
-        <input id="numberYOffsetInput" type="range" min="-10" max="34" value="12">
-      </label>
-      <label>Feet width <span id="feetWidthValue"></span>
-        <input id="feetWidthInput" type="range" min="48" max="160" value="96">
-      </label>
-      <label>Inches width <span id="inchWidthValue"></span>
-        <input id="inchWidthInput" type="range" min="58" max="170" value="96">
-      </label>
-      <label>Status top <span id="statusTopValue"></span>
-        <input id="statusTopInput" type="range" min="250" max="460" value="380">
-      </label>
-      <label>Bottom labels Y <span id="bottomYValue"></span>
-        <input id="bottomYInput" type="range" min="8" max="70" value="44">
-      </label>
-      <label>Signal right <span id="signalRightValue"></span>
-        <input id="signalRightInput" type="range" min="116" max="300" value="202">
-      </label>
-      <label>WiFi right <span id="wifiRightValue"></span>
-        <input id="wifiRightInput" type="range" min="70" max="230" value="132">
-      </label>
-      <label>Battery right <span id="batteryRightValue"></span>
-        <input id="batteryRightInput" type="range" min="6" max="70" value="18">
-      </label>
-      <label>Top icon Y <span id="iconTopValue"></span>
-        <input id="iconTopInput" type="range" min="8" max="70" value="24">
-      </label>
-
-      <div class="hint">Click TX, signal bars, battery, or bottom-right settings hotspot on the display.</div>
     </aside>
   </main>
 
