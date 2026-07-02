@@ -347,14 +347,15 @@ if ($('copyState')) {
 }
 if ($('exportPng')) {
   $('exportPng').addEventListener('click', () => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${PANEL.width}" height="${PANEL.height}"><foreignObject width="100%" height="100%">${new XMLSerializer().serializeToString($('screen').cloneNode(true))}</foreignObject></svg>`;
+    const profile = activeProfile();
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${profile.width}" height="${profile.height}"><foreignObject width="100%" height="100%">${new XMLSerializer().serializeToString($('screen').cloneNode(true))}</foreignObject></svg>`;
     const blob = new Blob([svg], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(blob);
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = PANEL.width;
-      canvas.height = PANEL.height;
+      canvas.width = profile.width;
+      canvas.height = profile.height;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0);
       URL.revokeObjectURL(url);
