@@ -60,16 +60,13 @@ nav {
   text-decoration: none;
 }
 
-.brand-mark {
-  display: grid;
+.brand-logo {
+  display: block;
   width: 34px;
   height: 34px;
-  place-items: center;
-  border-radius: 7px;
+  border-radius: 8px;
   background: var(--ink);
-  color: #fff;
-  font-size: 18px;
-  letter-spacing: 0;
+  object-fit: cover;
 }
 
 nav {
@@ -121,6 +118,16 @@ nav a {
   width: min(760px, calc(100% - 36px));
   padding: 148px clamp(18px, 5vw, 70px) 80px;
   color: #fff;
+}
+
+.hero-logo {
+  display: block;
+  width: 82px;
+  height: 82px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.32);
+  object-fit: cover;
 }
 
 .eyebrow {
