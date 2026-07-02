@@ -40,6 +40,7 @@ const controlIds = [
   'statusTopInput','bottomYInput','signalRightInput','wifiRightInput','batteryRightInput','iconTopInput'
 ];
 const modes = ['FAST', 'NORMAL', 'SMOOTH', 'SLOW'];
+let effectiveScale = defaults.scale;
 
 function offsetToNumber(offsetText) {
   const parsed = Number(String(offsetText).replace('"', ''));
@@ -156,7 +157,11 @@ function renderInfoPages() {
 }
 
 function render() {
-  document.documentElement.style.setProperty('--scale', state.scale);
+  const workspace = document.querySelector('.workspace');
+  const availableWidth = workspace ? workspace.clientWidth - 16 : window.innerWidth - 20;
+  const fitScale = Math.max(0.45, Math.min(1, availableWidth / PANEL.width));
+  effectiveScale = Math.min(state.scale, fitScale);
+  document.documentElement.style.setProperty('--scale', effectiveScale);
   renderPages();
   renderHome();
   renderInfoPages();
@@ -253,3 +258,4 @@ $('exportPng').addEventListener('click', () => {
 
 syncControls();
 render();
+window.addEventListener('resize', render);

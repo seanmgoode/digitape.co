@@ -13,9 +13,12 @@
 }
 
 * { box-sizing: border-box; }
+html { overflow-x: hidden; }
 body {
   margin: 0;
+  width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
   background: #0b0d10;
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
@@ -26,11 +29,13 @@ button { cursor: pointer; }
 .app-shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: minmax(660px, 1fr) 320px;
+  grid-template-columns: minmax(0, 1fr) 320px;
   gap: 18px;
   padding: 18px;
+  overflow-x: hidden;
 }
 .sim-panel, .controls {
+  min-width: 0;
   background: var(--panel);
   border: 1px solid #252a2f;
   border-radius: 10px;
@@ -42,6 +47,7 @@ button { cursor: pointer; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  min-width: 0;
   padding: 14px 18px;
   border-bottom: 1px solid #252a2f;
 }
@@ -49,6 +55,7 @@ h1, h2, p { margin: 0; }
 h1 { font-size: 20px; font-weight: 750; }
 p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 .toolbar-actions { display: flex; gap: 8px; }
+.toolbar-actions button { white-space: nowrap; }
 .toolbar-actions button, .controls button {
   color: var(--text);
   background: #1a1d20;
@@ -61,13 +68,14 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
   display: grid;
   place-items: center;
   padding: 22px;
-  overflow: auto;
+  overflow: hidden;
 }
 .device-frame {
   width: calc(var(--screen-w) * var(--scale));
   height: calc(var(--screen-h) * var(--scale));
-  display: grid;
-  place-items: center;
+  position: relative;
+  display: block;
+  overflow: hidden;
   background: #000;
   border-radius: calc(28px * var(--scale));
   box-shadow: 0 20px 80px rgba(0,0,0,.55), inset 0 0 0 1px #242424;
@@ -79,7 +87,7 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
   background: #000;
   overflow: hidden;
   transform: scale(var(--scale));
-  transform-origin: center;
+  transform-origin: top left;
   border-radius: 22px;
 }
 .screen::after {
@@ -242,4 +250,60 @@ p { color: #8d949c; font-size: 13px; margin-top: 4px; }
 @media (max-width: 960px) {
   .app-shell { grid-template-columns: 1fr; }
   .controls { max-height: none; }
+}
+
+@media (max-width: 640px) {
+  body {
+    min-height: 100svh;
+  }
+
+  .app-shell {
+    min-height: 100svh;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .sim-panel,
+  .controls {
+    border-radius: 8px;
+  }
+
+  .toolbar {
+    min-height: 0;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 17px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .toolbar-actions {
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 142px;
+    gap: 6px;
+  }
+
+  .toolbar-actions button,
+  .controls button {
+    min-height: 34px;
+    padding: 7px 8px;
+    border-radius: 7px;
+    font-size: 12px;
+  }
+
+  .workspace {
+    padding: 8px;
+  }
+
+  .controls {
+    padding: 12px;
+  }
 }
