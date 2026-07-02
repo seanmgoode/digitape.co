@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DigiTape Dev</title>
+    <link rel="icon" href="../assets/digitape-logo.jpg">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <section class="gate" id="gate" aria-labelledby="gate-title">
+      <form class="gate-card" id="gate-form">
+        <a class="brand" href="../">
+          <img src="../assets/digitape-logo.jpg" alt="" width="1254" height="1254" aria-hidden="true">
+          <span>DigiTape</span>
+        </a>
+        <p class="eyebrow">Protected dev page</p>
+        <h1 id="gate-title">DigiTape Dev</h1>
+        <p>Enter the access password to view the internal display and app development captures.</p>
+        <label>
+          Password
+          <input id="gate-password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Unlock dev page</button>
+        <p class="gate-error" id="gate-error" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <main class="dev is-locked" id="dev-content">
+      <header class="dev-header">
+        <a class="brand" href="../">
+          <img src="../assets/digitape-logo.jpg" alt="" width="1254" height="1254" aria-hidden="true">
+          <span>DigiTape</span>
+        </a>
+        <a class="back-link" href="../">Back to site</a>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">DigiTape Dev</p>
+        <h1>Display, firmware, and app workbench.</h1>
+        <p>
+          Internal reference captures for RX 2.41, Mini RX 1.8, AMOLED 2.41, and the iOS controller.
+          Use this page to compare screens while tuning firmware, display states, and app behavior.
+        </p>
+      </section>
+
+      <section class="panel app-panel" aria-labelledby="app-title">
+        <div>
+          <p class="eyebrow">iOS controller</p>
+          <h2 id="app-title">Companion app reference</h2>
+          <p>iOS controller capture for matching the app view against RX display behavior.</p>
+        </div>
+        <figure class="phone-shot">
+          <img src="assets/DigiTape_iOS_simulator_home.png" alt="DigiTape iOS simulator home screen">
+        </figure>
+      </section>
+
+      <section class="panel" aria-labelledby="rx-title">
+        <div class="section-heading">
+          <p class="eyebrow">RX 2.41</p>
+          <h2 id="rx-title">Large receiver display states</h2>
+        </div>
+        <div class="screen-grid">
+          <figure><img src="assets/rx241_home.png" alt="RX 2.41 home screen"><figcaption>Home</figcaption></figure>
+          <figure><img src="assets/rx241_parameters.png" alt="RX 2.41 parameters screen"><figcaption>Parameters</figcaption></figure>
+          <figure><img src="assets/rx241_marks.png" alt="RX 2.41 marks screen"><figcaption>Marks</figcaption></figure>
+          <figure><img src="assets/rx241_limits.png" alt="RX 2.41 limits screen"><figcaption>Limits</figcaption></figure>
+          <figure><img src="assets/rx241_lockouts.png" alt="RX 2.41 lockouts screen"><figcaption>Lockouts</figcaption></figure>
+          <figure><img src="assets/rx241_diagnostics.png" alt="RX 2.41 diagnostics screen"><figcaption>Diagnostics</figcaption></figure>
+          <figure><img src="assets/rx241_firmware.png" alt="RX 2.41 firmware screen"><figcaption>Firmware</figcaption></figure>
+          <figure><img src="assets/rx241_connections.png" alt="RX 2.41 connections screen"><figcaption>Connections</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="mini-title">
+        <div class="section-heading">
+          <p class="eyebrow">Mini RX 1.8</p>
+          <h2 id="mini-title">Mini receiver screens</h2>
+        </div>
+        <div class="screen-grid">
+          <figure><img src="assets/mini18_home.png" alt="Mini RX home screen"><figcaption>Home</figcaption></figure>
+          <figure><img src="assets/mini18_settings.png" alt="Mini RX settings screen"><figcaption>Settings</figcaption></figure>
+          <figure><img src="assets/mini18_offset.png" alt="Mini RX offset screen"><figcaption>Offset</figcaption></figure>
+          <figure><img src="assets/mini18_marks.png" alt="Mini RX marks screen"><figcaption>Marks</figcaption></figure>
+          <figure><img src="assets/mini18_limits.png" alt="Mini RX limits screen"><figcaption>Limits</figcaption></figure>
+          <figure><img src="assets/mini18_lockouts.png" alt="Mini RX lockouts screen"><figcaption>Lockouts</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="amoled-title">
+        <div class="section-heading">
+          <p class="eyebrow">AMOLED 2.41</p>
+          <h2 id="amoled-title">AMOLED receiver screens</h2>
+        </div>
+        <div class="screen-grid">
+          <figure><img src="assets/amoled241_home.png" alt="AMOLED receiver home screen"><figcaption>Home</figcaption></figure>
+          <figure><img src="assets/amoled241_parameters.png" alt="AMOLED receiver parameters screen"><figcaption>Parameters</figcaption></figure>
+          <figure><img src="assets/amoled241_marks.png" alt="AMOLED receiver marks screen"><figcaption>Marks</figcaption></figure>
+          <figure><img src="assets/amoled241_limits.png" alt="AMOLED receiver limits screen"><figcaption>Limits</figcaption></figure>
+          <figure><img src="assets/amoled241_lockouts.png" alt="AMOLED receiver lockouts screen"><figcaption>Lockouts</figcaption></figure>
+          <figure><img src="assets/amoled241_diagnostics.png" alt="AMOLED receiver diagnostics screen"><figcaption>Diagnostics</figcaption></figure>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const passwordHash = "582b16576953510c763c95b6d5b1b098b63f9ce7b8dbf36eab66df2ce847a8a8";
+      const gate = document.querySelector("#gate");
+      const content = document.querySelector("#dev-content");
+      const form = document.querySelector("#gate-form");
+      const input = document.querySelector("#gate-password");
+      const error = document.querySelector("#gate-error");
+
+      function unlock() {
+        sessionStorage.setItem("digitape-dev-unlocked", "true");
+        gate.hidden = true;
+        content.classList.remove("is-locked");
+      }
+
+      async function sha256(value) {
+        const data = new TextEncoder().encode(value);
+        const digest = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      if (sessionStorage.getItem("digitape-dev-unlocked") === "true") {
+        unlock();
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        error.textContent = "";
+        if (await sha256(input.value) === passwordHash) {
+          unlock();
+        } else {
+          input.value = "";
+          input.focus();
+          error.textContent = "Password did not match.";
+        }
+      });
+    </script>
+  </body>
+</html>
