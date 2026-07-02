@@ -19,7 +19,7 @@
       </a>
       <nav aria-label="Primary">
         <a href="#system">System</a>
-        <a href="#rx-screens">RX Screens</a>
+        <a href="#firmware">Firmware</a>
         <a href="#workflow">Workflow</a>
         <a href="#app">App</a>
         <a href="#updates">Updates</a>
@@ -67,29 +67,42 @@
         </div>
       </section>
 
-      <section id="rx-screens" class="section rx-screen-section" aria-labelledby="rx-screens-title">
+      <section id="firmware" class="section firmware-section" aria-labelledby="firmware-title">
         <div class="section-heading">
-          <p class="eyebrow">RX screen report</p>
-          <h2 id="rx-screens-title">The receiver UI stays readable under pressure.</h2>
-          <a class="report-link" href="assets/DigiTape_RX_Screen_Report.pdf">Open the screen report</a>
+          <p class="eyebrow">Firmware features</p>
+          <h2 id="firmware-title">Sensor-flexible firmware with focus tools built in.</h2>
         </div>
-        <div class="screen-grid">
-          <figure>
-            <img src="assets/rx-screen-home.png" alt="DigiTape RX home screen showing TX signal, battery, and distance" width="512" height="256">
-            <figcaption>Home distance readout</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/rx-screen-menu.png" alt="DigiTape RX settings screen" width="512" height="256">
-            <figcaption>Settings menu</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/rx-screen-diagnostics.png" alt="DigiTape RX diagnostics screen showing link, signal, response, and sensor state" width="512" height="256">
-            <figcaption>Diagnostics</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/rx-screen-tag.png" alt="DigiTape RX tag screen showing tag status and battery" width="512" height="256">
-            <figcaption>Tag status</figcaption>
-          </figure>
+        <div class="firmware-grid">
+          <article>
+            <span class="feature-kicker">Sensors</span>
+            <h3>Multiple measurement sources</h3>
+            <p>Designed around swappable distance inputs, including HC-SR04 ultrasonic, Garmin LIDAR-Lite, TF-Luna style LiDAR, and wireless TAG packets.</p>
+          </article>
+          <article>
+            <span class="feature-kicker">Focus</span>
+            <h3>Marks, limits, and lockouts</h3>
+            <p>Store focus marks, define active distance limits, and create lockout zones so noisy or unwanted ranges do not interrupt the working readout.</p>
+          </article>
+          <article>
+            <span class="feature-kicker">Tuning</span>
+            <h3>Offset and response modes</h3>
+            <p>Dial in offsets, switch between fast/default/smoothed response behavior, and keep source-specific tag offsets for different camera or target setups.</p>
+          </article>
+          <article>
+            <span class="feature-kicker">Radio</span>
+            <h3>RX, TX, and TAG routing</h3>
+            <p>Use receiver, transmitter, mini RX, and tag roles with route switching between direct hardware reads and wireless ranging workflows.</p>
+          </article>
+          <article>
+            <span class="feature-kicker">Diagnostics</span>
+            <h3>Link and battery visibility</h3>
+            <p>Track link state, packet health, signal strength, installed firmware, TX/RX battery state, sensor type, and board identity during tests.</p>
+          </article>
+          <article>
+            <span class="feature-kicker">Updates</span>
+            <h3>OTA-ready release path</h3>
+            <p>Firmware manifests, stable channels, board naming, and OTA update hooks are built into the project so field units can grow without a full bench setup.</p>
+          </article>
         </div>
       </section>
 
@@ -119,13 +132,14 @@
           <p class="eyebrow">Companion app</p>
           <h2 id="app-title">The real DigiTape app, ready for field testing.</h2>
           <p>
-            This capture comes from the current DigiTape iOS controller running in the simulator. It mirrors the RX console view with live distance, route, signal, battery, offset, response mode, and menu controls in one pocket interface.
+            The iOS controller mirrors the RX console logic with live distance, route switching, sensor status, battery state, offset controls, response modes, firmware checks, and app-side parameter tools for marks, limits, lockouts, and tag setup.
           </p>
         </div>
-        <figure class="app-shot">
-          <img src="assets/digitape-app-home.png" alt="DigiTape iOS app showing the RX console interface" width="1206" height="2622">
-          <figcaption>Captured from the current DigiTape iOS controller.</figcaption>
-        </figure>
+        <div class="app-feature-list">
+          <div><strong>Monitor</strong><span>Distance, signal, route, firmware, and power state.</span></div>
+          <div><strong>Configure</strong><span>Offsets, response behavior, tags, marks, limits, and lockout zones.</span></div>
+          <div><strong>Maintain</strong><span>Check installed versions and prepare cloud firmware updates.</span></div>
+        </div>
       </section>
 
       <section id="updates" class="section updates-section" aria-labelledby="updates-title">
